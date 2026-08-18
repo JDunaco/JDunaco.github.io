@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Dunaway — Software Engineer</title>
+<meta name="description" content="Jordan Dunaway — software engineer working across algorithms, mobile, and game development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b1220;
+    --bg-elev: #111b2e;
+    --bg-elev-2: #16223a;
+    --text: #e7eaf2;
+    --text-dim: #96a1bd;
+    --text-faint: #5f6b8a;
+    --accent: #f2a93b;
+    --accent-soft: #f2a93b1a;
+    --accent-2: #49b8aa;
+    --accent-2-soft: #49b8aa1a;
+    --line: rgba(231,234,242,0.09);
+    --line-strong: rgba(231,234,242,0.16);
+    --radius: 10px;
+    --maxw: 1040px;
+    font-size: 16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--accent-soft); color: var(--accent); }
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap{ max-width: var(--maxw); margin:0 auto; padding: 0 28px; }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position: sticky; top:0; z-index:50;
+    background: rgba(11,18,32,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height: 64px;
+  }
+  .brand{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text);
+    text-decoration:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--accent-2);
+    box-shadow: 0 0 0 3px var(--accent-2-soft);
+  }
+  nav.links{ display:flex; gap: 28px; }
+  nav.links a{
+    font-size:0.9rem; text-decoration:none; color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  nav.links a:hover{ color: var(--text); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  #hero{
+    position:relative;
+    overflow:hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  #hero canvas{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    opacity: 0.55;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    padding: 108px 0 96px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent-2);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width: 18px; height:1px;
+    background: var(--accent-2);
+    display:inline-block;
+  }
+  #hero h1{
+    font-size: clamp(2.4rem, 5.4vw, 4.1rem);
+    line-height: 1.05;
+    max-width: 780px;
+  }
+  #hero h1 .accent{ color: var(--accent); }
+  #hero p.lede{
+    margin-top: 22px;
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 560px;
+  }
+  .hero-cta{
+    display:flex; gap:14px; margin-top: 36px; flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration:none;
+    border: 1px solid var(--line-strong);
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: var(--accent);
+    color: #16130a;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn-primary:hover{ background:#f7b752; }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--text-faint); background: rgba(255,255,255,0.02); }
+
+  /* ---------- SECTION shared ---------- */
+  section{ padding: 88px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{ margin-bottom: 44px; }
+  .section-head .eyebrow{ margin-bottom: 10px; }
+  .section-head h2{ font-size: 1.9rem; }
+
+  /* ---------- ABOUT ---------- */
+  #about .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  #about p{ color: var(--text-dim); margin-bottom: 16px; font-size: 1.02rem; }
+  #about p strong{ color: var(--text); font-weight: 600; }
+  .stack-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .pill-group{ margin-bottom: 24px; }
+  .pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-list{ display:flex; flex-direction:column; gap: 18px; }
+  .project{
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+  }
+  .project:hover{
+    border-color: var(--line-strong);
+    background: var(--bg-elev-2);
+    transform: translateY(-2px);
+  }
+  .project-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap: 20px; flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .project-path{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent-2);
+  }
+  .project h3{ font-size: 1.3rem; margin-top: 4px; }
+  .project-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .project p.desc{
+    color: var(--text-dim);
+    margin: 14px 0 18px;
+    max-width: 640px;
+  }
+  .project-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 18px; }
+  .tag{
+    font-size: 0.74rem;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--text-faint);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    padding: 4px 10px;
+    border-radius: 5px;
+  }
+  .project-links{ display:flex; gap: 18px; }
+  .project-links a{
+    font-size: 0.86rem;
+    text-decoration:none;
+    color: var(--accent);
+    display:inline-flex; align-items:center; gap:6px;
+    border-bottom: 1px solid transparent;
+  }
+  .project-links a:hover{ border-bottom-color: var(--accent); }
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{ position:relative; padding-left: 28px; }
+  .timeline::before{
+    content:'';
+    position:absolute; left:5px; top:6px; bottom:6px;
+    width:1px; background: var(--line-strong);
+  }
+  .tl-item{ position:relative; padding-bottom: 34px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:'';
+    position:absolute; left:-28px; top:5px;
+    width:11px; height:11px; border-radius:50%;
+    background: var(--bg);
+    border: 2px solid var(--accent-2);
+  }
+  .tl-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    flex-wrap:wrap; gap: 8px 20px;
+    margin-bottom: 6px;
+  }
+  .tl-head h3{ font-size: 1.15rem; }
+  .tl-date{ font-family:'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-faint); }
+  .tl-sub{ color: var(--text-faint); font-size: 0.88rem; margin-bottom: 12px; }
+  .tl-item ul{ list-style:none; display:flex; flex-direction:column; gap:8px; max-width: 620px; }
+  .tl-item li{ color: var(--text-dim); font-size: 0.96rem; padding-left: 18px; position:relative; }
+  .tl-item li::before{
+    content:'—';
+    position:absolute; left:0; color: var(--text-faint);
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .edu-card{
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+  }
+  .edu-card .tl-date{ margin-bottom: 10px; display:block; }
+  .edu-card h3{ font-size: 1.08rem; margin-bottom: 4px; }
+  .edu-card .school{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 12px; }
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-2);
+    background: var(--accent-2-soft);
+    border: 1px solid rgba(73,184,170,0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .status-badge .dot2{ width:6px; height:6px; border-radius:50%; background: var(--accent-2); }
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer#contact{
+    padding: 90px 0 60px;
+  }
+  footer#contact .contact-inner{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap: wrap; gap: 40px;
+  }
+  footer#contact h2{ font-size: 2.1rem; max-width: 480px; }
+  footer#contact p{ color: var(--text-dim); margin-top: 14px; max-width: 440px; }
+  .contact-links{ display:flex; flex-direction:column; gap: 14px; align-items:flex-start; }
+  .contact-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    text-decoration:none;
+    color: var(--text);
+    display:flex; align-items:center; gap:10px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 4px;
+    min-width: 240px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .contact-links a:hover{ color: var(--accent); border-color: var(--accent); }
+  .contact-links span.k{ color: var(--text-faint); width: 64px; display:inline-block; }
+  .fine-print{
+    margin-top: 70px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size: 0.8rem; color: var(--text-faint);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 760px){
+    nav.links{ display:none; }
+    .hero-inner{ padding: 76px 0 64px; }
+    #about .about-grid{ grid-template-columns: 1fr; gap: 36px; }
+    .edu-grid{ grid-template-columns: 1fr; }
+    footer#contact .contact-inner{ flex-direction:column; align-items:flex-start; }
+    section{ padding: 64px 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#hero" class="brand"><span class="dot"></span>jordan.dunaway</a>
+    <nav class="links">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<section id="hero">
+  <canvas id="graph-canvas" aria-hidden="true"></canvas>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">software engineer / overland park, ks</div>
+    <h1>I find the fastest path through <span class="accent">systems</span> — code, cities, and the occasional raccoon-run sandwich shop.</h1>
+    <p class="lede">M.S. in Software Engineering. Background in game programming. I build things that route, dispatch, and occasionally convert unsuspecting NPCs into organized crime.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="https://github.com/JDunaco" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" href="#contact">Contact</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">~/about</div>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p><strong>I've spent my career so far in two lanes that turned out to be the same lane.</strong> One foot in game development — leading programming on two-week game jam teams, shipping playable builds under hard deadlines. The other in systems thinking — an M.S. in Software Engineering built on algorithms, data structures, and a genuine interest in how things route, match, and fail gracefully.</p>
+        <p>Most recently that came together in a discrete-event ride-share simulation: a custom Quadtree for spatial matching, Dijkstra's algorithm for routing, and a full test suite to make sure none of it was lying to me.</p>
+        <p>Day to day, I'm a <strong>Field Service Engineer II at Copan Diagnostics</strong>, diagnosing and repairing automated lab equipment on-site — the same instinct for finding the actual problem, just with a soldering iron instead of a stack trace.</p>
+      </div>
+      <div>
+        <div class="pill-group">
+          <div class="stack-title">Languages</div>
+          <div class="pills">
+            <span class="pill">Python</span><span class="pill">C#</span><span class="pill">C++</span><span class="pill">Java</span><span class="pill">GDScript</span>
+          </div>
+        </div>
+        <div class="pill-group">
+          <div class="stack-title">Engines & Frameworks</div>
+          <div class="pills">
+            <span class="pill">Unity</span><span class="pill">Unreal</span><span class="pill">Godot</span><span class="pill">React Native</span><span class="pill">Expo</span>
+          </div>
+        </div>
+        <div class="pill-group">
+          <div class="stack-title">Tools & Practice</div>
+          <div class="pills">
+            <span class="pill">Git</span><span class="pill">SQL</span><span class="pill">Agile / Scrum</span><span class="pill">OOP</span><span class="pill">Streamlit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">~/projects</div>
+      <h2>Selected work</h2>
+    </div>
+
+    <div class="project-list">
+
+      <article class="project">
+        <div class="project-top">
+          <div>
+            <div class="project-path">rideshare-simulator/</div>
+            <h3>RideShare Simulator</h3>
+          </div>
+          <div class="project-meta">solo · data structures &amp; algorithms capstone</div>
+        </div>
+        <p class="desc">A discrete-event simulation that dispatches cars to riders in real time. A Quadtree narrows candidates by geographic proximity; Dijkstra's algorithm picks the fastest car by actual road-network travel time. Includes a full CLI, seeded reproducible runs, correctness tests validating the Quadtree against a brute-force check on 5,000 random points, and an automated metrics/visualization pipeline.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Quadtree</span><span class="tag">Dijkstra</span><span class="tag">Testing</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/JDunaco/rideshare-simulator" target="_blank" rel="noopener">Repo ↗</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-top">
+          <div>
+            <div class="project-path">trash-panda-takeover/</div>
+            <h3>Trash Panda Takeover</h3>
+          </div>
+          <div class="project-meta">lead programmer · 3-person team · 2-week jam</div>
+        </div>
+        <p class="desc">A day/night dual-loop game built in Unity. By day, run a sandwich shop counter and serve customers. By night, scavenge the town for ingredients and build enough influence to convert humans into raccoons — three raccoons in a trenchcoat, back to work the counter with you. Led the team's programming: the shop-management loop, the day/night transition, and night-phase enemy/NPC behavior.</p>
+        <div class="project-tags">
+          <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Game Jam</span><span class="tag">Team Lead</span>
+        </div>
+        <div class="project-links">
+          <a href="https://dunaco.itch.io/trash-panda-takeover" target="_blank" rel="noopener">Play on itch.io ↗</a>
+          <a href="https://github.com/KurazyGamer/Racoon_Mafia" target="_blank" rel="noopener">Repo ↗</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-top">
+          <div>
+            <div class="project-path">sneakspell/</div>
+            <h3>SneakSpell</h3>
+          </div>
+          <div class="project-meta">lead programmer · 4-person team · 2-week jam</div>
+        </div>
+        <p class="desc">A medieval roguelike built in Godot for a jam themed around "Alchemy and Shadow." Led programming for a 4-person team, architecting the core mechanics and main game loop with a deliberate focus on readability, so teammates could extend the code without the original author present. Picked up Godot/GDScript specifically to broaden engine range beyond Unity/Unreal.</p>
+        <div class="project-tags">
+          <span class="tag">Godot</span><span class="tag">GDScript</span><span class="tag">Game Jam</span><span class="tag">Team Lead</span>
+        </div>
+        <div class="project-links">
+          <a href="https://dunaco.itch.io/sneakspell" target="_blank" rel="noopener">Play on itch.io ↗</a>
+          <a href="https://github.com/JDunaco/PSSummer2024" target="_blank" rel="noopener">Repo ↗</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-top">
+          <div>
+            <div class="project-path">nexttime/</div>
+            <h3>Project NextTime</h3>
+          </div>
+          <div class="project-meta">solo · Spring 2025 – Apr 2026</div>
+        </div>
+        <p class="desc">A cross-platform mobile app built solo in React Native and Expo, from data model through UI, targeting iOS and Android from a single codebase. Used in daily personal testing over several months to surface real usability issues and iterate on UX — treating "works on my phone" as the start of the process, not the finish line.</p>
+        <div class="project-tags">
+          <span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Mobile</span>
+        </div>
+        <div class="project-links">
+          <a href="https://snack.expo.dev/@dunaco/nexttimeproject" target="_blank" rel="noopener">Live demo ↗</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">~/experience</div>
+      <h2>Work</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>Field Service Engineer II — Copan Diagnostics</h3>
+          <span class="tl-date">Feb 2023 — Present</span>
+        </div>
+        <div class="tl-sub">Lenexa, KS</div>
+        <ul>
+          <li>Diagnose and repair faults on automated lab equipment on-site for clients, minimizing downtime on systems critical to lab operations.</li>
+          <li>Evaluate risk on client automation lines and apply preventive countermeasures ahead of failures, rather than reacting after the fact.</li>
+          <li>Produce detailed service documentation and run on-site follow-ups, serving as the go-to technical resource for a portfolio of client sites — translating hardware and software issues into clear next steps for non-technical stakeholders.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">~/education</div>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="tl-date">Mar 2025 — Aug 2026</span>
+        <h3>M.S. in Software Engineering</h3>
+        <div class="school">University of Advancing Technology, Tempe, AZ</div>
+        <span class="status-badge"><span class="dot2"></span>Completed</span>
+      </div>
+      <div class="edu-card">
+        <span class="tl-date">Sep 2018 — Dec 2022</span>
+        <h3>B.S. in Computer Science, Game Programming</h3>
+        <div class="school">University of Advancing Technology, Tempe, AZ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <h2>Let's talk shop.</h2>
+        <p>Open to software engineering, mobile development, and game development roles. Happy to talk through any of the projects above in more detail.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:DunawayJordanR@Gmail.com"><span class="k">email</span> DunawayJordanR@Gmail.com</a>
+        <a href="https://www.linkedin.com/in/jordan-dunaway-b80486183/" target="_blank" rel="noopener"><span class="k">linkedin</span> /in/jordan-dunaway</a>
+        <a href="https://github.com/JDunaco" target="_blank" rel="noopener"><span class="k">github</span> /JDunaco</a>
+      </div>
+    </div>
+    <div class="fine-print">
+      <span>Jordan Dunaway — Overland Park, KS</span>
+      <span id="year-stamp"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Footer year
+  document.getElementById('year-stamp').textContent = '© ' + new Date().getFullYear();
+
+  // Hero pathfinding-graph animation
+  (function(){
+    var canvas = document.getElementById('graph-canvas');
+    var ctx = canvas.getContext('2d');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var W, H, DPR;
+    var nodes = [];
+    var edges = [];
+    var pulses = [];
+
+    function resize(){
+      var hero = document.getElementById('hero');
+      W = hero.offsetWidth;
+      H = hero.offsetHeight;
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      buildGraph();
+    }
+
+    function buildGraph(){
+      nodes = [];
+      edges = [];
+      pulses = [];
+      var cols = W < 760 ? 5 : 8;
+      var rows = 5;
+      var marginX = W * 0.42;
+      var marginY = 40;
+      var cellW = (W - marginX) / cols;
+      var cellH = (H - marginY*2) / rows;
+
+      for(var r=0;r<rows;r++){
+        for(var c=0;c<cols;c++){
+          var jitterX = (Math.random()-0.5) * cellW * 0.5;
+          var jitterY = (Math.random()-0.5) * cellH * 0.5;
+          nodes.push({
+            x: marginX + c*cellW + cellW/2 + jitterX,
+            y: marginY + r*cellH + cellH/2 + jitterY,
+            r: r, c: c
+          });
+        }
+      }
+
+      function idx(r,c){ return r*cols+c; }
+      for(var r=0;r<rows;r++){
+        for(var c=0;c<cols;c++){
+          if(c < cols-1 && Math.random() > 0.25){
+            edges.push([idx(r,c), idx(r,c+1)]);
+          }
+          if(r < rows-1 && Math.random() > 0.4){
+            edges.push([idx(r,c), idx(r+1,c)]);
+          }
+        }
+      }
+
+      var pulseCount = W < 760 ? 3 : 6;
+      for(var i=0;i<pulseCount;i++){
+        spawnPulse();
+      }
+    }
+
+    function spawnPulse(){
+      if(edges.length === 0) return;
+      var e = edges[Math.floor(Math.random()*edges.length)];
+      pulses.push({
+        edge: e,
+        t: Math.random(),
+        speed: 0.0035 + Math.random()*0.004
+      });
+    }
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+
+      // edges
+      ctx.strokeStyle = 'rgba(231,234,242,0.07)';
+      ctx.lineWidth = 1;
+      edges.forEach(function(e){
+        var a = nodes[e[0]], b = nodes[e[1]];
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      });
+
+      // nodes
+      nodes.forEach(function(n){
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(231,234,242,0.18)';
+        ctx.fill();
+      });
+
+      // pulses
+      pulses.forEach(function(p){
+        var a = nodes[p.edge[0]], b = nodes[p.edge[1]];
+        var x = a.x + (b.x-a.x)*p.t;
+        var y = a.y + (b.y-a.y)*p.t;
+        var grad = ctx.createRadialGradient(x,y,0,x,y,10);
+        grad.addColorStop(0, 'rgba(242,169,59,0.9)');
+        grad.addColorStop(1, 'rgba(242,169,59,0)');
+        ctx.beginPath();
+        ctx.arc(x,y,10,0,Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(x,y,2.4,0,Math.PI*2);
+        ctx.fillStyle = '#f7c978';
+        ctx.fill();
+
+        if(!reduceMotion){
+          p.t += p.speed;
+          if(p.t >= 1){
+            var e = edges[Math.floor(Math.random()*edges.length)];
+            p.edge = e; p.t = 0;
+            p.speed = 0.0035 + Math.random()*0.004;
+          }
+        }
+      });
+    }
+
+    function loop(){
+      draw();
+      if(!reduceMotion){
+        requestAnimationFrame(loop);
+      }
+    }
+
+    window.addEventListener('resize', function(){
+      resize();
+    });
+
+    resize();
+    loop();
+  })();
+</script>
+
+</body>
+</html>
